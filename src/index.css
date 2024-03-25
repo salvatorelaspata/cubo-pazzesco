@@ -23,6 +23,11 @@ body {
 
 }
 
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
