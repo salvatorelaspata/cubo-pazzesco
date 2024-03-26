@@ -136,7 +136,7 @@ const composeScene = (scene: THREE.Scene) => {
 
     scene.add(group)
 
-    return {group, latoDestro, latoSinistro, latoSuperiore, latoInferiore, latoFrontale, latoPosteriore, ...animateScene(latoDestro, latoSinistro, latoSuperiore, latoInferiore, latoFrontale, latoPosteriore)}
+    return {group, latoDestro, latoSinistro, latoSuperiore, latoInferiore, latoFrontale, latoPosteriore}
 }
 
 export const getScrollbarWidth = () => {
@@ -189,9 +189,17 @@ export const Scene = () => {
         camera.position.x = -25
 
         const renderer = new THREE.WebGLRenderer({canvas: ref.current as HTMLCanvasElement})
+        // set clean color dark dark gray
+        renderer.setClearColor(0x000000)
         renderer.setSize(WIDTH, HEIGHT)
 
-        new OrbitControls(camera, renderer.domElement)
+        const controls = new OrbitControls(camera, renderer.domElement)
+        controls.minDistance = 0;
+        controls.maxDistance = 50;
+        controls.enablePan = false;
+        controls.enableDamping = true
+        controls.dampingFactor = 0.25
+
 
         const { group, latoDestro, latoSinistro, latoSuperiore, latoInferiore, latoFrontale, latoPosteriore } 
             = composeScene(scene)
@@ -200,7 +208,7 @@ export const Scene = () => {
 
         function onWindowResize() {
             console.log('onWindowResize')
-            
+
             camera.aspect = window.innerWidth / window.innerHeight 
             camera.updateProjectionMatrix()
             renderer.setSize(window.innerWidth - scrollbarWidth, window.innerHeight - scrollbarWidth)
