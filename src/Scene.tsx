@@ -22,7 +22,7 @@ const toRandom = (cube: THREE.Mesh, position: THREE.Vector3, prop: 'x' | 'y' | '
 }
 
 const animateScene = (latoDestro: THREE.Mesh[],latoSinistro: THREE.Mesh[],latoSuperiore: THREE.Mesh[],latoInferiore: THREE.Mesh[],latoFrontale: THREE.Mesh[],latoPosteriore: THREE.Mesh[]) => {
-    latoDestro.forEach((cube, i) => {
+    latoDestro.forEach((cube) => {
         toRandom(cube, cube.position, 'x')
     })
     latoSinistro.forEach((cube) => {
@@ -133,6 +133,9 @@ const composeScene = (scene: THREE.Scene) => {
     const positionLight = new THREE.PointLight(0xffffff, 1_000_000, 0, 0.01)
     positionLight.position.set(0,0,0)
     group.add(positionLight)
+
+    const ambient = new THREE.AmbientLight(0xffffff, 0.1)
+    group.add(ambient)
 
     scene.add(group)
 
